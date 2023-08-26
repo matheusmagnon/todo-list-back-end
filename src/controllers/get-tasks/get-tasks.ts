@@ -1,6 +1,6 @@
 import { IGetTasksController, IGetTasksRepository } from "./protocols";
 
-export class GetUsersController implements IGetTasksController {
+export class GetTasksController implements IGetTasksController {
   // getTasksRepository: IGetTasksRepository;
   constructor(private readonly getTasksRepository: IGetTasksRepository) {
     // this.getTasksRepository = getTasksRepository;
