@@ -13,8 +13,10 @@ export const MongoClient = {
 
     const client = new Mongo(url, { auth: { username, password } });
     const db = client.db(process.env.MONGODB_NAME);
+
     this.client = client;
     this.db = db;
+
     console.log("connected to mongodb!");
 
     // db.collection("tasks").find();

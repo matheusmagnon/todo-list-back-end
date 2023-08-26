@@ -15,6 +15,8 @@ export class GetTasksController implements IGetTasksController {
         body: tasks,
       };
     } catch (error) {
+      console.log(error);
+
       return {
         statusCode: 500,
         body: "Internal Server Error",
