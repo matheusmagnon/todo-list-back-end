@@ -5,11 +5,10 @@ import { MongoGetTasksRepository } from "./repositories/getTasks/mongo-get-tasks
 import { MongoClient } from "./database/mongo";
 import { MongoCreateTaskRepository } from "./repositories/create-task/mongo-create-task";
 import { CreateTaskController } from "./controllers/create-task/create-task";
+import { MongoUpdateTaskRepository } from "./repositories/update-task/mongo-update-task";
+import { UpdateTaskController } from "./controllers/update-task/update-task";
 
 const main = async () => {
-  //
-  //
-  //
   config();
   const app = express();
 
@@ -26,13 +25,25 @@ const main = async () => {
 
   app.post("/tasks", async (req, res) => {
     const mongoCreateTaskRespository = new MongoCreateTaskRepository();
-
     const createTaskController = new CreateTaskController(
       mongoCreateTaskRespository
     );
-
     const { body, statusCode } = await createTaskController.handle({
       body: req.body,
+    });
+    res.status(statusCode).send(body);
+  });
+
+  app.patch("/tasks/:id", async (req, res) => {
+    const mongoUpdateTaskRepository = new MongoUpdateTaskRepository();
+
+    const updateTaskController = new UpdateTaskController(
+      mongoUpdateTaskRepository
+    );
+
+    const { body, statusCode } = await updateTaskController.handle({
+      body: req.body,
+      params: req.params,
     });
 
     res.status(statusCode).send(body);
