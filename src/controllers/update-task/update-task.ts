@@ -1,6 +1,11 @@
 import { HttpRequest, HttpResponse } from "controllers/protocols";
 import { Task } from "../../models/task";
-import { IUpdateTaskController, IUpdateTaskRepository } from "./protocols";
+import {
+  IUpdateTaskController,
+  IUpdateTaskRepository,
+  UpdadeTaskParams,
+} from "./protocols";
+import { CreateTaskParams } from "controllers/create-task/protocols";
 
 export class UpdateTaskController implements IUpdateTaskController {
   constructor(private readonly updateTaskRepository: IUpdateTaskRepository) {}
@@ -16,6 +21,22 @@ export class UpdateTaskController implements IUpdateTaskController {
         };
       }
 
+      const allowedFieldsToUpdate: (keyof UpdadeTaskParams)[] = [
+        "title",
+        "description",
+      ];
+
+      //verifica campos obrigatórios
+      const someFieldIsNotAllowedToUpdate = Object.keys(body).some(
+        (key) => !allowedFieldsToUpdate.includes(key as keyof UpdadeTaskParams)
+      );
+
+      if (someFieldIsNotAllowedToUpdate) {
+        return {
+          statusCode: 400,
+          body: "Some received fields is not allowed to update",
+        };
+      }
       const task = await this.updateTaskRepository.updateTask(id, body);
 
       return {
