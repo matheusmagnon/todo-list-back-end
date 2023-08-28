@@ -5,7 +5,6 @@ import {
   IUpdateTaskRepository,
   UpdadeTaskParams,
 } from "./protocols";
-import { CreateTaskParams } from "controllers/create-task/protocols";
 
 export class UpdateTaskController implements IUpdateTaskController {
   constructor(private readonly updateTaskRepository: IUpdateTaskRepository) {}

@@ -1,5 +1,5 @@
-import { HttpRequest, HttpResponse } from "controllers/protocols";
-import { Task } from "models/task";
+import { HttpRequest, HttpResponse } from "../../controllers/protocols";
+import { Task } from "../../models/task";
 
 export interface UpdadeTaskParams {
   title?: string;

@@ -7,6 +7,8 @@ import { MongoCreateTaskRepository } from "./repositories/create-task/mongo-crea
 import { CreateTaskController } from "./controllers/create-task/create-task";
 import { MongoUpdateTaskRepository } from "./repositories/update-task/mongo-update-task";
 import { UpdateTaskController } from "./controllers/update-task/update-task";
+import { DeleteTaskController } from "./controllers/delete-taks/delete-task";
+import { MongoDeleteTaskRepository } from "./repositories/delete-taks/mongo-delete-task";
 
 const main = async () => {
   config();
@@ -48,6 +50,20 @@ const main = async () => {
 
     res.status(statusCode).send(body);
   });
+
+  app.delete("/tasks/:id", async (req, res) => {
+    const mongoDeleteTaskRepository = new MongoDeleteTaskRepository();
+    const deleteTaskController = new DeleteTaskController(
+      mongoDeleteTaskRepository
+    );
+
+    const { body, statusCode } = await deleteTaskController.handle({
+      params: req.params,
+    });
+
+    res.status(statusCode).send(body);
+  });
+
   const port = process.env.PORT || 8000;
 
   app.listen(port, () => console.log(`lintening port ${port}`));
