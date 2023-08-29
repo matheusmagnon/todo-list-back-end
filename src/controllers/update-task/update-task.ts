@@ -1,17 +1,22 @@
-import { HttpRequest, HttpResponse } from "controllers/protocols";
+import { HttpRequest, HttpResponse, IController } from "controllers/protocols";
 import { Task } from "../../models/task";
-import {
-  IUpdateTaskController,
-  IUpdateTaskRepository,
-  UpdadeTaskParams,
-} from "./protocols";
+import { IUpdateTaskRepository, UpdadeTaskParams } from "./protocols";
 
-export class UpdateTaskController implements IUpdateTaskController {
+export class UpdateTaskController implements IController {
   constructor(private readonly updateTaskRepository: IUpdateTaskRepository) {}
-  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Task>> {
+  async handle(
+    httpRequest: HttpRequest<UpdadeTaskParams>
+  ): Promise<HttpResponse<Task>> {
     try {
       const id = httpRequest?.params?.id;
       const body = httpRequest?.body;
+
+      if (!body) {
+        return {
+          statusCode: 400,
+          body: "Missing fields",
+        };
+      }
 
       if (!id) {
         return {

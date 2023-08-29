@@ -1,8 +1,12 @@
-import { HttpRequest, HttpResponse } from "../../controllers/protocols";
+import {
+  HttpRequest,
+  HttpResponse,
+  IController,
+} from "../../controllers/protocols";
 import { Task } from "../../models/task";
-import { IDeleteTaskController, IDeleteTaskRepository } from "./protocols";
+import { IDeleteTaskRepository } from "./protocols";
 
-export class DeleteTaskController implements IDeleteTaskController {
+export class DeleteTaskController implements IController {
   constructor(private readonly deleteTaskRespository: IDeleteTaskRepository) {}
   async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Task>> {
     try {

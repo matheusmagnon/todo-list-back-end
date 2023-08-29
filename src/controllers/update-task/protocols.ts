@@ -6,10 +6,6 @@ export interface UpdadeTaskParams {
   description?: string;
 }
 
-export interface IUpdateTaskController {
-  handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Task>>;
-}
-
 export interface IUpdateTaskRepository {
   updateTask(id: string, params: UpdadeTaskParams): Promise<Task>;
 }

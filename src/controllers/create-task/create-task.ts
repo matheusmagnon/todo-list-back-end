@@ -1,12 +1,8 @@
-import { HttpRequest, HttpResponse } from "controllers/protocols";
+import { HttpRequest, HttpResponse, IController } from "controllers/protocols";
 import { Task } from "models/task";
-import {
-  CreateTaskParams,
-  ICreateTaskRepository,
-  ICreateTasksController,
-} from "./protocols";
+import { CreateTaskParams, ICreateTaskRepository } from "./protocols";
 
-export class CreateTaskController implements ICreateTasksController {
+export class CreateTaskController implements IController {
   constructor(private readonly createTaskRespository: ICreateTaskRepository) {}
   async handle(
     httpRequest: HttpRequest<CreateTaskParams>
