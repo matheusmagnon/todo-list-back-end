@@ -1,28 +1,23 @@
 import { HttpRequest, HttpResponse, IController } from "controllers/protocols";
 import { Task } from "../../models/task";
 import { IUpdateTaskRepository, UpdadeTaskParams } from "./protocols";
+import { badRequest, ok, serverError } from "../../controllers/helpers";
 
 export class UpdateTaskController implements IController {
   constructor(private readonly updateTaskRepository: IUpdateTaskRepository) {}
   async handle(
     httpRequest: HttpRequest<UpdadeTaskParams>
-  ): Promise<HttpResponse<Task>> {
+  ): Promise<HttpResponse<Task | string>> {
     try {
       const id = httpRequest?.params?.id;
       const body = httpRequest?.body;
 
       if (!body) {
-        return {
-          statusCode: 400,
-          body: "Missing fields",
-        };
+        return badRequest("Missing fields");
       }
 
       if (!id) {
-        return {
-          statusCode: 400,
-          body: "Missing user id",
-        };
+        return badRequest("Missing task id");
       }
 
       const allowedFieldsToUpdate: (keyof UpdadeTaskParams)[] = [
@@ -36,23 +31,14 @@ export class UpdateTaskController implements IController {
       );
 
       if (someFieldIsNotAllowedToUpdate) {
-        return {
-          statusCode: 400,
-          body: "Some received fields is not allowed to update",
-        };
+        return badRequest("Some received fields is not allowed to update");
       }
       const task = await this.updateTaskRepository.updateTask(id, body);
 
-      return {
-        statusCode: 200,
-        body: task,
-      };
+      return ok<Task>(task);
     } catch (error) {
       console.log(error);
-      return {
-        statusCode: 500,
-        body: "Something went wrong",
-      };
+      return serverError();
     }
   }
 }

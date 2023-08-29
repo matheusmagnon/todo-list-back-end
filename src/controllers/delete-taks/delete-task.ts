@@ -1,3 +1,4 @@
+import { badRequest, ok, serverError } from "../../controllers/helpers";
 import {
   HttpRequest,
   HttpResponse,
@@ -8,27 +9,20 @@ import { IDeleteTaskRepository } from "./protocols";
 
 export class DeleteTaskController implements IController {
   constructor(private readonly deleteTaskRespository: IDeleteTaskRepository) {}
-  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Task>> {
+  async handle(
+    httpRequest: HttpRequest<any>
+  ): Promise<HttpResponse<Task | string>> {
     try {
       const id = httpRequest?.params?.id;
 
       if (!id) {
-        return {
-          statusCode: 404,
-          body: "Missing task id",
-        };
+        return badRequest("Missing task id");
       }
       const task = await this.deleteTaskRespository.deleteTask(id);
 
-      return {
-        statusCode: 200,
-        body: task,
-      };
+      return ok<Task>(task);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: "Something went wrong",
-      };
+      return serverError();
     }
   }
 }
