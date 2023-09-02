@@ -1,4 +1,9 @@
-import { badRequest, ok, serverError } from "../../controllers/helpers";
+import {
+  badRequest,
+  notFound,
+  ok,
+  serverError,
+} from "../../controllers/helpers";
 import {
   HttpRequest,
   HttpResponse,
@@ -22,7 +27,7 @@ export class DeleteTaskController implements IController {
 
       return ok<Task>(task);
     } catch (error) {
-      return serverError();
+      return notFound();
     }
   }
 }

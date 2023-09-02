@@ -1,7 +1,12 @@
 import { HttpRequest, HttpResponse, IController } from "controllers/protocols";
 import { Task } from "../../models/task";
 import { IUpdateTaskRepository, UpdadeTaskParams } from "./protocols";
-import { badRequest, ok, serverError } from "../../controllers/helpers";
+import {
+  badRequest,
+  notFound,
+  ok,
+  serverError,
+} from "../../controllers/helpers";
 
 export class UpdateTaskController implements IController {
   constructor(private readonly updateTaskRepository: IUpdateTaskRepository) {}
@@ -23,6 +28,7 @@ export class UpdateTaskController implements IController {
       const allowedFieldsToUpdate: (keyof UpdadeTaskParams)[] = [
         "title",
         "description",
+        "isCompleted",
       ];
 
       //verifica campos obrigatórios
@@ -38,7 +44,7 @@ export class UpdateTaskController implements IController {
       return ok<Task>(task);
     } catch (error) {
       console.log(error);
-      return serverError();
+      return notFound();
     }
   }
 }

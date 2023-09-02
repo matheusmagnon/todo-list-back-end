@@ -23,3 +23,10 @@ export const serverError = (): HttpResponse<string> => {
     body: "Somethig went wrong",
   };
 };
+
+export const notFound = (): HttpResponse<string> => {
+  return {
+    statusCode: HttpStatusCode.NOT_FOUND,
+    body: "Not found",
+  };
+};

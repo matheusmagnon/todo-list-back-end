@@ -22,6 +22,9 @@ export class CreateTaskController implements IController {
         }
       }
 
+      // attributesTask.isCompleted = true;
+      // console.log(attributesTask);
+
       const task = await this.createTaskRespository.createTask(
         httpRequest.body!
       );

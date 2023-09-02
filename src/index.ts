@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { config } from "dotenv";
 import { GetTasksController } from "./controllers/get-tasks/get-tasks";
 import { MongoGetTasksRepository } from "./repositories/getTasks/mongo-get-tasks";
@@ -17,6 +18,10 @@ const main = async () => {
   app.use(express.json());
 
   await MongoClient.connect();
+
+  // const cors = require("cors");
+
+  app.use(cors());
 
   app.get("/tasks", async (req, res) => {
     const mongoGetTasksRepository = new MongoGetTasksRepository();
