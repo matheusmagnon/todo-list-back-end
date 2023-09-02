@@ -36,6 +36,16 @@ cd todo-list-back-end
 npm install
 ```
 
+5. Para o mongo db utilizamos o `https://www.mongodb.com/atlas`, crie um arquivo .env na raiz do projeto com as variaveis de ambiente, por exemplo:
+
+```
+PORT=8000
+MONGODB_URL=mongodb+srv://linkDB
+MONGODB_USERNAME=userDB
+MONGODB_PASSWORD=passwordDB
+MONGODB_NAME=nameDB
+```
+
 4. Execute o projeto Frontend
 
 ```bash
