@@ -1,4 +1,43 @@
-Cada endpoint tem um controler (Verb..Controller) para validar a requisição 
-Repository pattern 
- -(Verb..Repository) abstrair toda logica do db para uma interface 
- -(MongoVerbEntiRepository): A logica em sí para manipular o db 
+# todo list back end(Aplicação para gestão de tarefas )
+
+## Funcionalidades da aplicação
+
+- Cadastrar tarefas
+- Atualizar tarefas
+- Marcar tarefa como concluída
+- Excluir tarefas
+
+## Tecnologias utilizadas
+
+- Typescript
+- Express
+- Cors
+- Eslint
+- Prettier
+- Mongodb
+
+### Instalação
+
+1. Clone o repositório
+
+```bash
+git clone https://github.com/matheusmagnon/todo-list-back-end.git
+```
+
+2. Acesse a pasta do projeto
+
+```bash
+cd todo-list-back-end
+```
+
+3. Instale as dependências necessárias
+
+```bash
+npm install
+```
+
+4. Execute o projeto Frontend
+
+```bash
+npm run start:dev
+```
