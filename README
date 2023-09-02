@@ -46,7 +46,7 @@ MONGODB_PASSWORD=passwordDB
 MONGODB_NAME=nameDB
 ```
 
-4. Execute o projeto Frontend
+4. Execute o projeto Backend
 
 ```bash
 npm run start:dev
